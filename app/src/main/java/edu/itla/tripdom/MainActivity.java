@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import edu.itla.tripdom.Entity.Publicacion;
 
 public class MainActivity extends AppCompatActivity {
 
