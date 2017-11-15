@@ -13,6 +13,6 @@ public class Visualizar extends AppCompatActivity {
 
         Bundle parametros = getIntent().getExtras();
         TextView texto = findViewById(R.id.txtname);
-        texto.setText(parametros.getString("Joao"));
+        texto.setText(parametros.getString("Nombre"));
     }
 }

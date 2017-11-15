@@ -25,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                String nombre = txtNombre.getText().toString();
-               String joao = "Joao Alvarez";
-             /*  if (nombre.isEmpty()) {
+               /*  if (nombre.isEmpty()) {
                    Toast fallar = Toast.makeText(MainActivity.this, "Debe introducir un nombre", Toast.LENGTH_LONG);
                    fallar.show();
                }
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
                }*/
                 Intent vista = new Intent(MainActivity.this, Visualizar.class);
                 vista.putExtra("Nombre", nombre);
-                vista.putExtra("Joao", joao);
                 startActivity(vista);
             }
         });
