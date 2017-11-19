@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import edu.itla.tripdom.view.RegistroUsuario;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -21,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               String nombre = txtNombre.getText().toString();
+                String nombre = txtNombre.getText().toString();
                /*  if (nombre.isEmpty()) {
                    Toast fallar = Toast.makeText(MainActivity.this, "Debe introducir un nombre", Toast.LENGTH_LONG);
                    fallar.show();
@@ -30,9 +32,10 @@ public class MainActivity extends AppCompatActivity {
                    Toast message = Toast.makeText(MainActivity.this, "Hola, " + nombre, Toast.LENGTH_LONG);
                    message.show();
                }*/
-                Intent vista = new Intent(MainActivity.this, Visualizar.class);
+                Intent vista = new Intent(MainActivity.this, RegistroUsuario.class);
                 vista.putExtra("Nombre", nombre);
                 startActivity(vista);
+
             }
         });
     }

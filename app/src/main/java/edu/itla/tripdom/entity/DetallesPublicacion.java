@@ -1,38 +1,31 @@
-package edu.itla.tripdom.Entity;
+package edu.itla.tripdom.entity;
 
 /**
  * Created by Jonathan on 13/11/2017.
  */
 
 public class DetallesPublicacion {
-    private String id;
-    private String publicacionId;
+    private int id;
+    private Publicacion publicacion;
     private String lugar;
     private String descripcion;
-    private String Origen;
 
-    public String getOrigen() {
-        return Origen;
-    }
 
-    public void setOrigen(String origen) {
-        Origen = origen;
-    }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getPublicacionId() {
-        return publicacionId;
+    public Publicacion getPublicacion() {
+        return publicacion;
     }
 
-    public void setPublicacionId(String publicacionId) {
-        this.publicacionId = publicacionId;
+    public void setPublicacion(Publicacion publicacionId) {
+        this.publicacion = publicacionId;
     }
 
     public String getLugar() {

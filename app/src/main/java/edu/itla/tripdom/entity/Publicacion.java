@@ -1,4 +1,7 @@
-package edu.itla.tripdom.Entity;
+package edu.itla.tripdom.entity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jonathan on 13/11/2017.
@@ -6,6 +9,27 @@ package edu.itla.tripdom.Entity;
 
 public class Publicacion {
     private String id;
+    private String fecha;
+    private String descripcion;
+    private double costo;
+    private String estado;
+    private int cupo;
+    private Usuario user;
+    private String Origen;
+    List<DetallesPublicacion> detalle;
+
+    public List<DetallesPublicacion> getDetalle() {
+        return detalle;
+    }
+
+
+    public String getOrigen() {
+        return Origen;
+    }
+
+    public void setOrigen(String origen) {
+        Origen = origen;
+    }
 
     public String getId() {
         return id;
@@ -15,7 +39,6 @@ public class Publicacion {
         this.id = id;
     }
 
-    private String fecha;
 
     public String getFecha() {
         return fecha;
@@ -25,7 +48,6 @@ public class Publicacion {
         this.fecha = fecha;
     }
 
-    private String descripcion;
 
     public String getDescripcion() {
         return descripcion;
@@ -35,7 +57,6 @@ public class Publicacion {
         this.descripcion = descripcion;
     }
 
-    private double costo;
 
     public double getCosto() {
         return costo;
@@ -45,7 +66,6 @@ public class Publicacion {
         this.costo = costo;
     }
 
-    private String estado;
 
     public String getEstado() {
         return estado;
@@ -55,7 +75,6 @@ public class Publicacion {
         this.estado = estado;
     }
 
-    private int cupo;
 
     public int getCupo() {
         return cupo;
@@ -65,14 +84,20 @@ public class Publicacion {
         this.cupo = cupo;
     }
 
-    private String userId;
 
-    public String getUserId() {
-        return userId;
+    public Usuario getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(Usuario user) {
+        this.user = user;
     }
 
+    public void addDetalle(DetallesPublicacion pd) {
+        if (detalle== null){
+            detalle = new ArrayList<>();
+        }
+        pd.setPublicacion(this);
+        detalle.add(pd);
+    }
 }
