@@ -35,7 +35,6 @@ public class RegistroUsuario extends AppCompatActivity {
                     String userName = txtNombreUser.getText().toString();
                     String userEmail = txtEmail.getText().toString();
                     String userPhone = txtTelefono.getText().toString();
-                    String[] email = null;
                     boolean checkCampos = true;
 
                     if (userName.equals("") || userEmail.equals("") | userPhone.equals("")) {
@@ -48,14 +47,16 @@ public class RegistroUsuario extends AppCompatActivity {
                                 checkCampos = false;
                             }
                             if ((userEmail.split("@").length > 0 ^ userEmail.split("@").length < 2)) {
-                                email = userEmail.split("\\.");
-                                if (email[1].contains(".")) {
+
+                                if (userEmail.split(".").length>0 ^ userEmail.contains(".")) {
                                     Toast.makeText(RegistroUsuario.this, "Correo Correcto", Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
-                                Toast.makeText(RegistroUsuario.this, "Correo Inválido, intente de nuevo.", Toast.LENGTH_SHORT).show();
-                                checkCampos = false;
+                                else {
+                                    Toast.makeText(RegistroUsuario.this, "Correo Inválido, intente de nuevo.", Toast.LENGTH_SHORT).show();
+                                    checkCampos = false;
+                                }
                             }
+
                         }
                         if (checkCampos) {
                             user.setNombre(txtNombreUser.getText().toString());
