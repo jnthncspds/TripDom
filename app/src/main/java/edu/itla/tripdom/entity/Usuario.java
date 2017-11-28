@@ -11,6 +11,7 @@ public class Usuario {
     private String telefono;
     private String email;
 
+
     public String getEmail() {
         return email;
     }
@@ -43,7 +44,7 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public TipoUsuario isTipoDeUsuario() {
+    public TipoUsuario getTipoDeUsuario() {
         return tipoDeUsuario;
     }
 

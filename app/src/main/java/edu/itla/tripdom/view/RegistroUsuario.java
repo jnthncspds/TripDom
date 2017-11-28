@@ -9,25 +9,41 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import edu.itla.tripdom.R;
+import edu.itla.tripdom.dao.UsuarioDbo;
 import edu.itla.tripdom.entity.TipoUsuario;
 import edu.itla.tripdom.entity.Usuario;
 
 public class RegistroUsuario extends AppCompatActivity {
     private static final String LOG_T = "RegistroUsuarioLog";
+    UsuarioDbo userdb = new UsuarioDbo(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_usuario);
 
-        Button btnSave = findViewById(R.id.btnSave );
+        Button btnLista = findViewById(R.id.btnListar);
+        Button btnSave = findViewById(R.id.btnSave);
         final EditText txtNombreUser = findViewById(R.id.txtUser);
         final EditText txtEmail = findViewById(R.id.txtEmail);
         final EditText txtTelefono = findViewById(R.id.txtTelefono);
 
+        btnLista.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+               List<Usuario> usuarios = userdb.buscar();
+               for (Usuario u: usuarios){
+                   Log.i("ListUusuarios", u.toString());
+               }
+            }
 
+        });
         btnSave.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
                 try {
@@ -35,44 +51,27 @@ public class RegistroUsuario extends AppCompatActivity {
                     String userName = txtNombreUser.getText().toString();
                     String userEmail = txtEmail.getText().toString();
                     String userPhone = txtTelefono.getText().toString();
-                    boolean checkCampos = true;
+                    Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+                    Matcher matcher = pattern.matcher(userEmail);
 
-                    if (userName.equals("") || userEmail.equals("") | userPhone.equals("")) {
-                        Toast message = Toast.makeText(RegistroUsuario.this, "Debes llenar los campos.", Toast.LENGTH_SHORT);
-                        message.show();
-                    } else {
-                        if (checkCampos){
-                            if (userPhone.length() < 10) {
-                                Toast.makeText(RegistroUsuario.this, "Debe de introducir un número de teléfono válido.", Toast.LENGTH_SHORT).show();
-                                checkCampos = false;
-                            }
-                            if ((userEmail.split("@").length > 0 ^ userEmail.split("@").length < 2)) {
-
-                                if (userEmail.split(".").length>0 ^ userEmail.contains(".")) {
-                                    Toast.makeText(RegistroUsuario.this, "Correo Correcto", Toast.LENGTH_SHORT).show();
-                                }
-                                else {
-                                    Toast.makeText(RegistroUsuario.this, "Correo Inválido, intente de nuevo.", Toast.LENGTH_SHORT).show();
-                                    checkCampos = false;
-                                }
-                            }
-
-                        }
-                        if (checkCampos) {
+                        if (matcher.find() ^ (userPhone.length() > 9 ^ userPhone.length()<11)) { //Se pasan los valores de registro a la instancia de Usuario.
                             user.setNombre(txtNombreUser.getText().toString());
                             user.setEmail(txtEmail.getText().toString());
                             user.setTelefono(txtTelefono.getText().toString());
                             user.setTipoDeUsuario(TipoUsuario.CLIENTE);
                             Log.i(LOG_T, user.toString());
+                            userdb.crear(user);
                             Toast.makeText(RegistroUsuario.this, "El registro se ha completado de forma exitosa.", Toast.LENGTH_SHORT).show();
                         }
+                        else{
+                            Toast.makeText(RegistroUsuario.this, "Correo o numero de telefono erroneo.", Toast.LENGTH_SHORT).show();
                         }
 
 
 
-                }
-                catch (Exception e){
-                    Toast.makeText(RegistroUsuario.this, "Hubo una excepción, contacte con el desarrollador. "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(RegistroUsuario.this, "Hubo una excepción, contacte con el desarrollador. " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
