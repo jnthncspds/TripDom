@@ -55,7 +55,7 @@ public class RegistroUsuario extends AppCompatActivity {
                                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
                     Matcher matcher = pattern.matcher(userEmail);
 
-                        if (matcher.find() ^ (userPhone.length() > 9 ^ userPhone.length()<11)) { //Se pasan los valores de registro a la instancia de Usuario.
+                        if (matcher.find() ^ (userPhone.length() > 9 ^ userPhone.length()<11)) { //Se evalúa si el correo tiene un patrón válido y si el numero de telefono es valido.
                             user.setNombre(txtNombreUser.getText().toString());
                             user.setEmail(txtEmail.getText().toString());
                             user.setTelefono(txtTelefono.getText().toString());
@@ -63,6 +63,7 @@ public class RegistroUsuario extends AppCompatActivity {
                             Log.i(LOG_T, user.toString());
                             userdb.crear(user);
                             Toast.makeText(RegistroUsuario.this, "El registro se ha completado de forma exitosa.", Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                         else{
                             Toast.makeText(RegistroUsuario.this, "Correo o numero de telefono erroneo.", Toast.LENGTH_SHORT).show();
