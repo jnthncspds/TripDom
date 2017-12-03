@@ -22,8 +22,5 @@ public class DetallesDbo {
         contentValues.put("publicacion", (detallesPublicacion.getPublicacion().toString()));
         contentValues.put("lugar", detallesPublicacion.getLugar());
         contentValues.put("descripcion", detallesPublicacion.getDescripcion());
-
-
-
     }
 }

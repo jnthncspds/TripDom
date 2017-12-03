@@ -26,7 +26,8 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".view.Publicaciones"></activity>
+        <activity android:name=".view.Publicaciones" />
+        <activity android:name=".view.ListaUsuario"></activity>
     </application>
 
 </manifest>

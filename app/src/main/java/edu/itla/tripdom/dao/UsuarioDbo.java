@@ -23,7 +23,7 @@ public class UsuarioDbo {
     }
 
 
-    public void crear(Usuario usuario) {
+    public void guardar(Usuario usuario) {
         ContentValues cv = new ContentValues();
         cv.put("nombre", usuario.getNombre());
         cv.put("email", usuario.getEmail());
@@ -31,9 +31,27 @@ public class UsuarioDbo {
         cv.put("telefono", usuario.getTelefono());
 
         SQLiteDatabase db = connection.getWritableDatabase();
-        Long id = db.insert("usuario", null, cv);
-        usuario.setId(id.intValue());
+        if (usuario.getId()==0) {
+            Long id = db.insert("usuario", null, cv);
+            usuario.setId(id.intValue());
+        }
+        else{
+            db.update("usuario", cv, "id = "+ usuario.getId(), null);
+        }
 
+        db.close();
+    }
+    public void actualizar(String nombre, String email, String telefono, Usuario usuario){
+        ContentValues cv = new ContentValues();
+        cv.put("nombre", nombre);
+        cv.put("email", email);
+        cv.put("tip_usuario", usuario.getTipoDeUsuario().toString());
+        cv.put("telefono", telefono);
+        String[] args = new String[]{String.valueOf(usuario.getId())};
+        SQLiteDatabase db = connection.getWritableDatabase();
+        //Long id = db.update("usuario", cv, "id=?",args);
+        //usuario.setId(id.intValue());
+        //TODO: Poner los valores en el update
         db.close();
     }
 

@@ -1,6 +1,5 @@
 package edu.itla.tripdom.view;
 
-import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +20,7 @@ import edu.itla.tripdom.entity.Usuario;
 public class RegistroUsuario extends AppCompatActivity {
     private static final String LOG_T = "RegistroUsuarioLog";
     UsuarioDbo userdb = new UsuarioDbo(this);
+    private Usuario user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,14 @@ public class RegistroUsuario extends AppCompatActivity {
         final EditText txtNombreUser = findViewById(R.id.txtUser);
         final EditText txtEmail = findViewById(R.id.txtEmail);
         final EditText txtTelefono = findViewById(R.id.txtTelefono);
+        Bundle parametros = getIntent().getExtras();
+
+        if (parametros.containsKey("Usuario")){
+            user = (Usuario) parametros.getSerializable("Usuario");
+            txtNombreUser.setText(user.getNombre());
+            txtEmail.setText(user.getEmail());
+            txtTelefono.setText(user.getTelefono());
+        }
 
         btnLista.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -47,7 +55,9 @@ public class RegistroUsuario extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    Usuario user = new Usuario();
+                    if (user==null){
+                        user = new Usuario();
+                    }
                     String userName = txtNombreUser.getText().toString();
                     String userEmail = txtEmail.getText().toString();
                     String userPhone = txtTelefono.getText().toString();
@@ -61,7 +71,7 @@ public class RegistroUsuario extends AppCompatActivity {
                             user.setTelefono(txtTelefono.getText().toString());
                             user.setTipoDeUsuario(TipoUsuario.CLIENTE);
                             Log.i(LOG_T, user.toString());
-                            userdb.crear(user);
+                            userdb.guardar(user);
                             Toast.makeText(RegistroUsuario.this, "El registro se ha completado de forma exitosa.", Toast.LENGTH_SHORT).show();
                             finish();
                         }

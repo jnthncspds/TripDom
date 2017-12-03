@@ -9,68 +9,19 @@
     android:paddingRight="30dp"
     tools:context="edu.itla.tripdom.MainActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/btnEventos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Iniciar Sesión"
-        android:textAlignment="textStart"
-        android:textSize="20sp"
-        android:textStyle="italic" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:textAlignment="center"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/txtEmailLogin"
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textAlignment="textStart"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Número Telefónico"
-        android:textAlignment="center"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/txtNumero"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number" />
+        android:layout_margin="50dp"
+        android:text="Eventos" />
 
     <Button
-        android:id="@+id/btnInicioSesion"
+        android:id="@+id/btnListaUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Iniciar Sesión" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:text="¿No estas registrado?" />
-
-    <Button
-        android:id="@+id/btnRegistrar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Registrar Usuario"
+        android:layout_margin="50dp"
+        android:text="Usuarios"
         app:layout_constraintTop_toBottomOf="@+id/txtEmailLogin"
         tools:layout_editor_absoluteX="16dp" />
 

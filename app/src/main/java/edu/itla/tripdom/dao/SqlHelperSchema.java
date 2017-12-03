@@ -30,5 +30,5 @@ public class SqlHelperSchema {
             "`lugar`TEXT NOT NULL," +
             "`descripcion`TEXT NOT NULL" +
             ")";
-    //crear las restantes entidades
+    //guardar las restantes entidades
 }
