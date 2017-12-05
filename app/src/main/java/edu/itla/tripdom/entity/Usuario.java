@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Usuario implements Serializable {
     private int id;
     private String nombre;
-    private TipoUsuario tipoDeUsuario; //Si es verdadero es empresa, si es falso es un usuario corriente.
+    private TipoUsuario tipoDeUsuario;
     private String telefono;
     private String email;
 
