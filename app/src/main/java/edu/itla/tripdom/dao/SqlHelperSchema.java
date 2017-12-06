@@ -17,6 +17,7 @@ public class SqlHelperSchema {
     public static final String PUBLICACION_TABLE = "CREATE TABLE `publicacion` (" +
             "`id`INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
             "`fecha`TEXT NOT NULL," +
+            "`usuario_id`INTEGER NOT NULL,"+
             "`descripcion`TEXT NOT NULL," +
             "`costo`REAL NOT NULL," +
             "`estado`TEXT NOT NULL," +

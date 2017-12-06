@@ -17,6 +17,20 @@ public class Publicacion implements Serializable {
     private int cupo;
     private Usuario user;
     private String Origen;
+    private int userId;
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setDetalle(List<DetallesPublicacion> detalle) {
+        this.detalle = detalle;
+    }
+
     List<DetallesPublicacion> detalle;
 
     public List<DetallesPublicacion> getDetalle() {

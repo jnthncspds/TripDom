@@ -33,12 +33,14 @@ public class PublicacionDbo {
         ContentValues contentValues = new ContentValues();
         //contentValues.put("id", publicacion.getId());
         contentValues.put("fecha", publicacion.getFecha());
+        contentValues.put("usuario_id", publicacion.getUserId());
         contentValues.put("descripcion", publicacion.getDescripcion());
         contentValues.put("costo", publicacion.getCosto());
         contentValues.put("estado", publicacion.getEstado());
         contentValues.put("cupo", publicacion.getCupo());
         contentValues.put("usuario", publicacion.getUser().toString());
         contentValues.put("origen", publicacion.getOrigen());
+
 
         SQLiteDatabase db = connection.getWritableDatabase();
         Long id = db.insert("publicacion", null, contentValues);
@@ -50,7 +52,7 @@ public class PublicacionDbo {
         List<Publicacion> publicacion = new ArrayList<>();
 
 
-        String[] campos = {"id", "fecha", "descripcion", "costo", "estado", "cupo", "usuario", "origen"};
+        String[] campos = {"id", "fecha","usuario_id", "descripcion", "costo", "estado", "cupo", "usuario", "origen"};
         SQLiteDatabase db = connection.getReadableDatabase();
         Cursor cursor = db.query("publicacion", campos, null, null, null, null, null);
         cursor.moveToFirst();
@@ -60,6 +62,7 @@ public class PublicacionDbo {
             //Creando una nueva ram
             p.setId(cursor.getInt(cursor.getColumnIndex("id")));
             p.setFecha(cursor.getString(cursor.getColumnIndex("fecha")));
+            p.setUserId(StringToUser(cursor.getString(cursor.getColumnIndex("usuario"))).getId());
             p.setDescripcion(cursor.getString(cursor.getColumnIndex("descripcion")));
             p.setCosto(cursor.getFloat(cursor.getColumnIndex("costo")));
             p.setEstado(cursor.getString(cursor.getColumnIndex("estado")));
