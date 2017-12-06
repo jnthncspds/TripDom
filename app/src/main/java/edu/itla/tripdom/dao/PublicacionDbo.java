@@ -57,7 +57,7 @@ public class PublicacionDbo {
         while (!cursor.isAfterLast()){
             Publicacion p = new Publicacion();
 
-
+            //Creando una nueva rama
             p.setId(cursor.getInt(cursor.getColumnIndex("id")));
             p.setFecha(cursor.getString(cursor.getColumnIndex("fecha")));
             p.setDescripcion(cursor.getString(cursor.getColumnIndex("descripcion")));
