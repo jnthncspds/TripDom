@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -31,6 +32,15 @@ public class ListaUsuario extends AppCompatActivity {
         List<Usuario> usuarios = usuarioDbo.buscar();
         listView.setAdapter(new UsuarioListAdapter(this, usuarios));
 
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                    Intent registroUsuario = new Intent(ListaUsuario.this, RegistroUsuario.class);
+                    startActivity(registroUsuario);
+            }
+        });
+
         Log.i(LOG_T, "Cantidad de usuario = " + usuarios.size());
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -45,13 +55,7 @@ public class ListaUsuario extends AppCompatActivity {
             }
         });
 
-        btnAgregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent registroUsuario = new Intent(ListaUsuario.this, RegistroUsuario.class);
-                startActivity(registroUsuario);
-            }
-        });
+
 
 
 

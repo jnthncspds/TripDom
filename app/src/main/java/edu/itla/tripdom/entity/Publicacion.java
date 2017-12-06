@@ -1,5 +1,6 @@
 package edu.itla.tripdom.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by Jonathan on 13/11/2017.
  */
 
-public class Publicacion {
+public class Publicacion implements Serializable {
     private int id;
     private String fecha;
     private String descripcion;

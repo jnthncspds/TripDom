@@ -32,15 +32,21 @@ public class RegistroUsuario extends AppCompatActivity {
         final EditText txtNombreUser = findViewById(R.id.txtUser);
         final EditText txtEmail = findViewById(R.id.txtEmail);
         final EditText txtTelefono = findViewById(R.id.txtTelefono);
-        Bundle parametros = getIntent().getExtras();
 
-        if ((parametros!=null) ^ (parametros.containsKey("Usuario"))){
-            user = (Usuario) parametros.getSerializable("Usuario");
-            txtNombreUser.setText(user.getNombre());
-            txtEmail.setText(user.getEmail());
-            txtTelefono.setText(user.getTelefono());
+        try {
+
+            Bundle parametros = getIntent().getExtras();
+
+            if (parametros != null ^ parametros.containsKey("Usuario")) {
+                user = (Usuario) parametros.getSerializable("Usuario");
+                txtNombreUser.setText(user.getNombre());
+                txtEmail.setText(user.getEmail());
+                txtTelefono.setText(user.getTelefono());
+            }
         }
-
+        catch (Exception e){
+            Toast.makeText(this, "Excepcion: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
         btnLista.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {

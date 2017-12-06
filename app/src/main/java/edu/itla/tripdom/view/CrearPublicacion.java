@@ -2,10 +2,13 @@ package edu.itla.tripdom.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.Random;
 
 import edu.itla.tripdom.R;
 import edu.itla.tripdom.dao.PublicacionDbo;
@@ -31,25 +34,31 @@ public class CrearPublicacion extends AppCompatActivity {
         final EditText txtCupo = findViewById(R.id.txtCupo);
         final EditText txtOrigen = findViewById(R.id.txtOrigen);
 
+        Random r = new Random();
+        int i = r.nextInt();
+
+        user.setId(i);
+        user.setNombre("PRUEBA");
+        user.setEmail("Prueba@hotmail.com");
+        user.setTipoDeUsuario(TipoUsuario.CLIENTE);
+        user.setTelefono("8094656200");
+
         Button btnPub = findViewById(R.id.btnPub);
 
         btnPub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user.setNombre("PRUEBA");
-                user.setEmail("Prueba@hotmail.com");
-                user.setTipoDeUsuario(TipoUsuario.CLIENTE);
-                user.setTelefono("8094656200");
-
-
                 publicacion.setFecha(txtFecha.getText().toString());
                 publicacion.setDescripcion(txtDescripcion.getText().toString());
                 publicacion.setCosto(Double.parseDouble(txtCosto.getText().toString()));
                 publicacion.setEstado(txtEstado.getText().toString());
                 publicacion.setCupo(Integer.parseInt(txtCupo.getText().toString()));
-                publicacion.setOrigen(txtOrigen.getText().toString());
                 publicacion.setUser(user);
+                publicacion.setOrigen(txtOrigen.getText().toString());
+                publicacionDbo.crear(publicacion);
+                Log.i("Publicacion", publicacion.toString());
                 Toast.makeText(CrearPublicacion.this, "Everything okay Jonathan ;)", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
