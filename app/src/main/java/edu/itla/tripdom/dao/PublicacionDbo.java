@@ -48,45 +48,45 @@ public class PublicacionDbo {
         db.close();
     }
 
-    public List<Publicacion> buscar(){
-        List<Publicacion> publicacion = new ArrayList<>();
+    public List<Publicacion> buscar(){ //Retorna una lista de publicaciones.
+        List<Publicacion> publicacion = new ArrayList<>(); //lista que retorna
 
 
-        String[] campos = {"id", "fecha","usuario_id", "descripcion", "costo", "estado", "cupo", "usuario", "origen"};
-        SQLiteDatabase db = connection.getReadableDatabase();
+        String[] campos = {"id", "fecha","usuario_id", "descripcion", "costo", "estado", "cupo", "usuario", "origen"}; //campos en la base de datos
+        SQLiteDatabase db = connection.getReadableDatabase(); //se llama la conexion leible de la base de datos
         Cursor cursor = db.query("publicacion", campos, null, null, null, null, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()){
+        cursor.moveToFirst(); //Declaracion del cursor, cursor sirve para pasar por las posiciones de una lista.
+        while (!cursor.isAfterLast()){ //Bucle while, mientras el cursor no está despues de la posicion final ejecuta este codigo
             Publicacion p = new Publicacion();
 
             //Creando una nueva ram
-            p.setId(cursor.getInt(cursor.getColumnIndex("id")));
-            p.setFecha(cursor.getString(cursor.getColumnIndex("fecha")));
+            p.setId(cursor.getInt(cursor.getColumnIndex("id"))); //Asigna un id a una variable publicacion para ser añadida a la lista.
+            p.setFecha(cursor.getString(cursor.getColumnIndex("fecha"))); //Asigna valor, al igual que en las lineas de abajo.
             p.setUserId(StringToUser(cursor.getString(cursor.getColumnIndex("usuario"))).getId());
             p.setDescripcion(cursor.getString(cursor.getColumnIndex("descripcion")));
             p.setCosto(cursor.getFloat(cursor.getColumnIndex("costo")));
             p.setEstado(cursor.getString(cursor.getColumnIndex("estado")));
             p.setCupo(cursor.getInt(cursor.getColumnIndex("cupo")));
-            p.setUser(StringToUser(cursor.getString(cursor.getColumnIndex("usuario"))));
+            p.setUser(StringToUser(cursor.getString(cursor.getColumnIndex("usuario")))); //Se utiliza el metodo StringToUser para pasar los valores
             p.setOrigen(cursor.getString(cursor.getColumnIndex("origen")));
-            publicacion.add(p);
-            cursor.moveToNext();
+            publicacion.add(p); //Añade la publicacion a la lista.
+            cursor.moveToNext(); // indica al cursor que se mueva a la siguiente posicion
         }
-        cursor.close();
-        db.close();
+        cursor.close(); //Indica al cursor que cierra o termine.
+        db.close(); // Indica que termine la conexion a la base de datos.
 
-        return publicacion;
+        return publicacion; //retorna la lista de publicaciones.
     }
 
-    public Usuario StringToUser(String s){
+    private Usuario StringToUser(String s){//Toma un String con el formato de un usuario en base de datos y lo transforma en usuario
         Usuario u = new Usuario();
         String[] valores = s.split("=");
 
-        u.setId(Integer.parseInt(valores[1].substring(0, valores[1].indexOf(", nombre"))));
-        u.setNombre(valores[2].substring(valores[2].indexOf("'")+1, valores[2].indexOf("',")));
+        u.setId(Integer.parseInt(valores[1].substring(0, valores[1].indexOf(", nombre")))); //Toma el valor del string, donde el valor esta entre 0 y ", nombre"
+        u.setNombre(valores[2].substring(valores[2].indexOf("'")+1, valores[2].indexOf("',"))); //Mismo concepto que la linea de arriba.
         u.setTipoDeUsuario(TipoUsuario.CLIENTE); //Debe usarse Publicador, pero por fines prácticos se utilizó la constante CLIENTE
         u.setTelefono(valores[4].substring(valores[4].indexOf("'")+1, valores[4].indexOf("',")));
         u.setEmail(valores[5].substring(valores[5].indexOf("'")+1, valores[5].indexOf("'}")));
-        return u;
+        return u; //devuelve el usuario
     }
 }

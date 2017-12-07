@@ -41,7 +41,7 @@ public class UsuarioDbo {
 
         db.close();
     }
-    public void actualizar(String nombre, String email, String telefono, Usuario usuario){
+    public void actualizar(String nombre, String email, String telefono, Usuario usuario){//este metodo no es necesario
         ContentValues cv = new ContentValues();
         cv.put("nombre", nombre);
         cv.put("email", email);

@@ -17,7 +17,7 @@ public class Publicacion implements Serializable {
     private int cupo;
     private Usuario user;
     private String Origen;
-    private int userId;
+    private int userId; //Declaré una variable para almacenar el id de los usuarios, en caso de requerir interaccion entre tablas
 
     public int getUserId() {
         return userId;

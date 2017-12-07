@@ -18,46 +18,47 @@ import edu.itla.tripdom.entity.Usuario;
 
 public class CrearPublicacion extends AppCompatActivity {
 
-    PublicacionDbo publicacionDbo = new PublicacionDbo(this);
-    Publicacion publicacion = new Publicacion();
-    Usuario user = new Usuario();
+    PublicacionDbo publicacionDbo = new PublicacionDbo(this); //Se declara una variable para empezar una conexion
+    Publicacion publicacion = new Publicacion(); //variable publicacion
+    Usuario user = new Usuario(); //Variable usuario, esta sirve para pasar el valor de un usuario para la publicacion.
+    //La variable usuario sera reemplazada por el valor que pase en un bundle al activity, sobre los datos del usuario que inicio sesion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_publicacion);
 
-        final EditText txtFecha = findViewById(R.id.txtFecha);
+        final EditText txtFecha = findViewById(R.id.txtFecha); //Se mapean las variables del activity.
         final EditText txtDescripcion = findViewById(R.id.txtDescripcion);
         final EditText txtCosto = findViewById(R.id.txtCosto);
         final EditText txtEstado = findViewById(R.id.txtEstado);
         final EditText txtCupo = findViewById(R.id.txtCupo);
         final EditText txtOrigen = findViewById(R.id.txtOrigen);
 
-        Random r = new Random();
-        int i = r.nextInt();
+        Random r = new Random(); // Esto no es necesario. Solo sirve para asignar un numero al azar al id... esto sera reemplazado
+        int i = r.nextInt(); // es poco seguro asignar un id al azar debido a que puede existir en la base de datos.
 
-        user.setId(i);
+        user.setId(i); //Valores practicos, solo estaran hasta que se realice el login.
         user.setNombre("PRUEBA");
         user.setEmail("Prueba@hotmail.com");
         user.setTipoDeUsuario(TipoUsuario.CLIENTE);
         user.setTelefono("8094656200");
 
-        Button btnPub = findViewById(R.id.btnPub);
+        Button btnPub = findViewById(R.id.btnPub); //Se mapea el boton de crear publicacion
 
         btnPub.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                publicacion.setFecha(txtFecha.getText().toString());
+            public void onClick(View view) { // Se empieza la configuracion del boton
+                publicacion.setFecha(txtFecha.getText().toString()); //Se asignan los valores de la publicacion por las variables de mapeo
                 publicacion.setDescripcion(txtDescripcion.getText().toString());
                 publicacion.setCosto(Double.parseDouble(txtCosto.getText().toString()));
                 publicacion.setEstado(txtEstado.getText().toString());
                 publicacion.setCupo(Integer.parseInt(txtCupo.getText().toString()));
                 publicacion.setUser(user);
                 publicacion.setOrigen(txtOrigen.getText().toString());
-                publicacionDbo.crear(publicacion);
-                Log.i("Publicacion", publicacion.toString());
-                Toast.makeText(CrearPublicacion.this, "Everything okay Jonathan ;)", Toast.LENGTH_SHORT).show();
+                publicacionDbo.crear(publicacion); //Se llama al metodo crear publicacion para inicializar la publicacion en base de datos
+                Log.i("Publicacion", publicacion.toString()); //Log para ver si funciona
+                Toast.makeText(CrearPublicacion.this, "Everything okay Jonathan ;)", Toast.LENGTH_SHORT).show(); //Si se llego a este punto sin excepciones significa que todo esta bien.
 
             }
         });

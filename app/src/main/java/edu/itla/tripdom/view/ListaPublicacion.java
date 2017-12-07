@@ -25,9 +25,9 @@ public class ListaPublicacion extends AppCompatActivity {
 
         PublicacionDbo publicacionDbo = new PublicacionDbo(this);
 
-            final ListView listView = findViewById(R.id.lvPub);
-            List<Publicacion> publicacions = publicacionDbo.buscar();
-            listView.setAdapter(new PublicacionListAdapter(this, publicacions));
+            final ListView listView = findViewById(R.id.lvPub); //Se mapea el listview declarado en el activiti
+            List<Publicacion> publicacions = publicacionDbo.buscar(); //Se declara una lista de tipo publicacion y se inicializa con un buscar
+            listView.setAdapter(new PublicacionListAdapter(this, publicacions)); //Se muestran los datos por la lista.
 
     }
 }
