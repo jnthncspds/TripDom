@@ -8,7 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 import edu.itla.tripdom.R;
@@ -19,7 +20,7 @@ import edu.itla.tripdom.entity.TipoUsuario;
 import edu.itla.tripdom.entity.Usuario;
 
 public class CrearPublicacion extends AppCompatActivity {
-
+    private static final SimpleDateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
     PublicacionDbo publicacionDbo = new PublicacionDbo(this); //Se declara una variable para empezar una conexion
     Publicacion publicacion = new Publicacion(); //variable publicacion
     Usuario user = new Usuario(); //Variable usuario, esta sirve para pasar el valor de un usuario para la publicacion.
@@ -51,7 +52,13 @@ public class CrearPublicacion extends AppCompatActivity {
                     Toast.makeText(CrearPublicacion.this, "Usted no puede crear una publicacion", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    publicacion.setFecha(Date.valueOf(txtFecha.getText().toString())); //Se asignan los valores de la publicacion por las variables de mapeo
+                    try {
+                        publicacion.setFecha(DF.parse(txtFecha.getText().toString())); //Se asignan los valores de la publicacion por las variables de mapeo
+                    }catch(Exception ex){
+                        Toast.makeText(CrearPublicacion.this, "Fecha incorrecta", Toast.LENGTH_SHORT).show();
+
+                    }
+
                     publicacion.setDescripcion(txtDescripcion.getText().toString());
                     publicacion.setCosto(Double.parseDouble(txtCosto.getText().toString()));
                     publicacion.setEstado(txtEstado.getText().toString());
