@@ -28,22 +28,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnListarEventos = findViewById(R.id.btnListaEventos);
-        Button btnEventos = findViewById(R.id.btnEventos);
+
         Button btnListaUsuario = findViewById(R.id.btnListaUsuario);
         Button btnCrearEventos = findViewById(R.id.btnCrearEvento);
         Button btnListaEventos = findViewById(R.id.btnListaEventos);
 
-        btnListarEventos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                List<Publicacion> usuarios = p.buscar();
-                for (Publicacion u: usuarios){
-                    Log.i("ListUusuarios", u.toString());
-                    Toast.makeText(MainActivity.this, ""+u.toString(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+
 
 
         btnListaEventos.setOnClickListener(new View.OnClickListener() {
@@ -66,15 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(crearEventos);
             }
         });
-
-        btnEventos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent vista = new Intent(MainActivity.this, Publicaciones.class);
-                startActivity(vista);
-                //finish();
-            }
-        });
+        
 
 
         btnListaUsuario.setOnClickListener(new View.OnClickListener() {

@@ -8,9 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.sql.Date;
 import java.util.Random;
 
 import edu.itla.tripdom.R;
+import edu.itla.tripdom.UsuarioActual;
 import edu.itla.tripdom.dao.PublicacionDbo;
 import edu.itla.tripdom.entity.Publicacion;
 import edu.itla.tripdom.entity.TipoUsuario;
@@ -38,23 +40,22 @@ public class CrearPublicacion extends AppCompatActivity {
         Random r = new Random(); // Esto no es necesario. Solo sirve para asignar un numero al azar al id... esto sera reemplazado
         int i = r.nextInt(); // es poco seguro asignar un id al azar debido a que puede existir en la base de datos.
 
-        user.setId(i); //Valores practicos, solo estaran hasta que se realice el login.
-        user.setNombre("PRUEBA");
-        user.setEmail("Prueba@hotmail.com");
-        user.setTipoDeUsuario(TipoUsuario.CLIENTE);
-        user.setTelefono("8094656200");
+
 
         Button btnPub = findViewById(R.id.btnPub); //Se mapea el boton de crear publicacion
 
         btnPub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { // Se empieza la configuracion del boton
-                publicacion.setFecha(txtFecha.getText().toString()); //Se asignan los valores de la publicacion por las variables de mapeo
+                if (UsuarioActual.getUsuario()==null){
+                    Toast.makeText(CrearPublicacion.this, "Usted no puede crear una publicacion", Toast.LENGTH_SHORT).show();
+                }
+                publicacion.setFecha(Date.valueOf(txtFecha.getText().toString())); //Se asignan los valores de la publicacion por las variables de mapeo
                 publicacion.setDescripcion(txtDescripcion.getText().toString());
                 publicacion.setCosto(Double.parseDouble(txtCosto.getText().toString()));
                 publicacion.setEstado(txtEstado.getText().toString());
                 publicacion.setCupo(Integer.parseInt(txtCupo.getText().toString()));
-                publicacion.setUser(user);
+                publicacion.setUser(UsuarioActual.getUsuario());
                 publicacion.setOrigen(txtOrigen.getText().toString());
                 publicacionDbo.crear(publicacion); //Se llama al metodo crear publicacion para inicializar la publicacion en base de datos
                 Log.i("Publicacion", publicacion.toString()); //Log para ver si funciona

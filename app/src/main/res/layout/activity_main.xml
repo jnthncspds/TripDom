@@ -10,13 +10,6 @@
     tools:context="edu.itla.tripdom.MainActivity">
 
     <Button
-        android:id="@+id/btnEventos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="50dp"
-        android:text="Eventos" />
-
-    <Button
         android:id="@+id/btnListaUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,11 +29,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Lista de Eventos" />
-
-    <Button
-        android:id="@+id/btnListaEvento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Listar Eventos Consola" />
 
 </LinearLayout>

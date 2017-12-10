@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -20,7 +23,8 @@ import edu.itla.tripdom.view.Publicaciones;
  * Created by Jonathan on 30/11/2017.
  */
 
-public class PublicacionDbo {
+public class PublicacionDbo{
+    private static final SimpleDateFormat DF = new SimpleDateFormat("dd-MM-yyyy");
     private DbConnection connection;
     Usuario user = new Usuario();
 
@@ -32,7 +36,7 @@ public class PublicacionDbo {
     public void crear(Publicacion publicacion){
         ContentValues contentValues = new ContentValues();
         //contentValues.put("id", publicacion.getId());
-        contentValues.put("fecha", publicacion.getFecha());
+        contentValues.put("fecha", DF.format(publicacion.getFecha()));
         contentValues.put("usuario_id", publicacion.getUserId());
         contentValues.put("descripcion", publicacion.getDescripcion());
         contentValues.put("costo", publicacion.getCosto());
@@ -54,14 +58,22 @@ public class PublicacionDbo {
 
         String[] campos = {"id", "fecha","usuario_id", "descripcion", "costo", "estado", "cupo", "usuario", "origen"}; //campos en la base de datos
         SQLiteDatabase db = connection.getReadableDatabase(); //se llama la conexion leible de la base de datos
+
         Cursor cursor = db.query("publicacion", campos, null, null, null, null, null);
+        //Cursor c = db.rawQuery();
+
+
         cursor.moveToFirst(); //Declaracion del cursor, cursor sirve para pasar por las posiciones de una lista.
         while (!cursor.isAfterLast()){ //Bucle while, mientras el cursor no está despues de la posicion final ejecuta este codigo
             Publicacion p = new Publicacion();
 
-            //Creando una nueva ram
             p.setId(cursor.getInt(cursor.getColumnIndex("id"))); //Asigna un id a una variable publicacion para ser añadida a la lista.
-            p.setFecha(cursor.getString(cursor.getColumnIndex("fecha"))); //Asigna valor, al igual que en las lineas de abajo.
+            try {
+                p.setFecha(DF.parse(cursor.getString(cursor.getColumnIndex("fecha")))); //Asigna valor, al igual que en las lineas de abajo.
+            }catch (ParseException ex){
+                p.setFecha(new Date());
+            }
+
             p.setUserId(StringToUser(cursor.getString(cursor.getColumnIndex("usuario"))).getId());
             p.setDescripcion(cursor.getString(cursor.getColumnIndex("descripcion")));
             p.setCosto(cursor.getFloat(cursor.getColumnIndex("costo")));

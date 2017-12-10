@@ -13,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edu.itla.tripdom.R;
+import edu.itla.tripdom.UsuarioActual;
 import edu.itla.tripdom.dao.UsuarioDbo;
 import edu.itla.tripdom.entity.TipoUsuario;
 import edu.itla.tripdom.entity.Usuario;
@@ -27,7 +28,7 @@ public class RegistroUsuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_usuario);
 
-        Button btnLista = findViewById(R.id.btnListar);
+        Button btnCambiar = findViewById(R.id.btnCambiar);
         Button btnSave = findViewById(R.id.btnSave);
         final EditText txtNombreUser = findViewById(R.id.txtUser);
         final EditText txtEmail = findViewById(R.id.txtEmail);
@@ -37,7 +38,7 @@ public class RegistroUsuario extends AppCompatActivity {
 
             Bundle parametros = getIntent().getExtras();
 
-            if (parametros != null ^ parametros.containsKey("Usuario")) {
+            if (parametros != null && parametros.containsKey("Usuario")) {
                 user = (Usuario) parametros.getSerializable("Usuario");
                 txtNombreUser.setText(user.getNombre());
                 txtEmail.setText(user.getEmail());
@@ -47,13 +48,17 @@ public class RegistroUsuario extends AppCompatActivity {
         catch (Exception e){
             Toast.makeText(this, "Excepcion: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-        btnLista.setOnClickListener(new View.OnClickListener(){
+        btnCambiar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-               List<Usuario> usuarios = userdb.buscar();
-               for (Usuario u: usuarios){
-                   Log.i("ListUusuarios", u.toString());
-               }
+                if (user!=null && user.getId()>0){
+                    UsuarioActual.setUsuario(user);
+                    Toast.makeText(RegistroUsuario.this, "Usuario Cambiado", Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+                    Toast.makeText(RegistroUsuario.this, "Usuario no permitido o no Existe", Toast.LENGTH_SHORT).show();
+                }
             }
 
         });
@@ -79,7 +84,7 @@ public class RegistroUsuario extends AppCompatActivity {
                             Log.i(LOG_T, user.toString());
                             userdb.guardar(user);
                             Toast.makeText(RegistroUsuario.this, "El registro se ha completado de forma exitosa.", Toast.LENGTH_SHORT).show();
-                            finish();
+                            //finish();
                         }
                         else{
                             Toast.makeText(RegistroUsuario.this, "Correo o numero de telefono erroneo.", Toast.LENGTH_SHORT).show();

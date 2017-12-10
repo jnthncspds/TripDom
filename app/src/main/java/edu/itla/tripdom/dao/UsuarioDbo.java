@@ -31,7 +31,7 @@ public class UsuarioDbo {
         cv.put("telefono", usuario.getTelefono());
 
         SQLiteDatabase db = connection.getWritableDatabase();
-        if (usuario.getId()==0) {
+        if (usuario.getId()<=0) {
             Long id = db.insert("usuario", null, cv);
             usuario.setId(id.intValue());
         }
@@ -41,19 +41,7 @@ public class UsuarioDbo {
 
         db.close();
     }
-    public void actualizar(String nombre, String email, String telefono, Usuario usuario){//este metodo no es necesario
-        ContentValues cv = new ContentValues();
-        cv.put("nombre", nombre);
-        cv.put("email", email);
-        cv.put("tip_usuario", usuario.getTipoDeUsuario().toString());
-        cv.put("telefono", telefono);
-        String[] args = new String[]{String.valueOf(usuario.getId())};
-        SQLiteDatabase db = connection.getWritableDatabase();
-        //Long id = db.update("usuario", cv, "id=?",args);
-        //usuario.setId(id.intValue());
-        //TODO: Poner los valores en el update
-        db.close();
-    }
+
 
     public List<Usuario> buscar() {
         List<Usuario> usuarios = new ArrayList<>();
