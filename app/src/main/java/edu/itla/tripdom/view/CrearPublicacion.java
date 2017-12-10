@@ -50,17 +50,18 @@ public class CrearPublicacion extends AppCompatActivity {
                 if (UsuarioActual.getUsuario()==null){
                     Toast.makeText(CrearPublicacion.this, "Usted no puede crear una publicacion", Toast.LENGTH_SHORT).show();
                 }
-                publicacion.setFecha(Date.valueOf(txtFecha.getText().toString())); //Se asignan los valores de la publicacion por las variables de mapeo
-                publicacion.setDescripcion(txtDescripcion.getText().toString());
-                publicacion.setCosto(Double.parseDouble(txtCosto.getText().toString()));
-                publicacion.setEstado(txtEstado.getText().toString());
-                publicacion.setCupo(Integer.parseInt(txtCupo.getText().toString()));
-                publicacion.setUser(UsuarioActual.getUsuario());
-                publicacion.setOrigen(txtOrigen.getText().toString());
-                publicacionDbo.crear(publicacion); //Se llama al metodo crear publicacion para inicializar la publicacion en base de datos
-                Log.i("Publicacion", publicacion.toString()); //Log para ver si funciona
-                Toast.makeText(CrearPublicacion.this, "Everything okay Jonathan ;)", Toast.LENGTH_SHORT).show(); //Si se llego a este punto sin excepciones significa que todo esta bien.
-
+                else {
+                    publicacion.setFecha(Date.valueOf(txtFecha.getText().toString())); //Se asignan los valores de la publicacion por las variables de mapeo
+                    publicacion.setDescripcion(txtDescripcion.getText().toString());
+                    publicacion.setCosto(Double.parseDouble(txtCosto.getText().toString()));
+                    publicacion.setEstado(txtEstado.getText().toString());
+                    publicacion.setCupo(Integer.parseInt(txtCupo.getText().toString()));
+                    publicacion.setUser(UsuarioActual.getUsuario());
+                    publicacion.setOrigen(txtOrigen.getText().toString());
+                    publicacionDbo.crear(publicacion); //Se llama al metodo crear publicacion para inicializar la publicacion en base de datos
+                    Log.i("Publicacion", publicacion.toString()); //Log para ver si funciona
+                    Toast.makeText(CrearPublicacion.this, "Everything okay Jonathan ;)", Toast.LENGTH_SHORT).show(); //Si se llego a este punto sin excepciones significa que todo esta bien.
+                }
             }
         });
     }
